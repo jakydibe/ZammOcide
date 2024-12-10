@@ -41,7 +41,7 @@ BOOL LoadDriver(LPCSTR driverPath, LPCSTR driverName) {
 	if (!hService) {
 		DWORD error = GetLastError();
 		if (error == ERROR_SERVICE_EXISTS) {
-			printf("Il servizio esiste gi‡, tentando di aprirlo...\n");
+			printf("Il servizio esiste gi√†, tentando di aprirlo...\n");
 			hService = OpenServiceA(hSCManager, driverName, SERVICE_START | DELETE | SERVICE_STOP);
 		}
 		else {
@@ -143,7 +143,7 @@ BOOL TerminateProcessByIOCTL(HANDLE hDevice, DWORD pid) {
 int isProcessRunning(DWORD pid) {
 	HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
 	if (hProcess) {
-		// Se il processo Ë aperto correttamente, Ë in esecuzione
+		// Se il processo √® aperto correttamente, √® in esecuzione
 		CloseHandle(hProcess);
 		return 1;
 	}
@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
 	//}
 
 
-	printf("/$$$$$$$$                                        /$$$$$$            /$$       /$$          \n");
+	printf(" /$$$$$$$$                                        /$$$$$$            /$$       /$$          \n");
 	printf("|_____ $$                                        /$$__  $$          |__/      | $$          \n");
 	printf("     /$$/   /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$ | $$  \\ $$  /$$$$$$$ /$$  /$$$$$$$  /$$$$$$ \n");
 	printf("    /$$/   |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$ /$$_____/| $$ /$$__  $$ /$$__  $$\n");
@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
 
 	printf("##################################################################################################################\n");
 
-	printf("Authors: Jacopo Di benedetto, https://github.com/jakydibe\nAiman Rattab, Https://github.com/Hihtness\n\n\n\n");
+	printf("Authors: \nJacopo Di benedetto, https://github.com/jakydibe\nAiman Rattab, Https://github.com/Hightness\n\n\n\n");
 
 
 
@@ -187,6 +187,27 @@ int main(int argc, char** argv) {
 
 	LPCSTR driverPath = "C:\\Users\\jak\\Downloads\\zam64.sys";
 	LPCSTR driverName = "ZammOcide";
+
+
+	int pid = 0;
+
+
+	int loop = 0;
+
+	for (int i = 0; i < argc; i++) {
+		if (strcmp(argv[i], "--loop") == 0) {
+			loop = 1;
+		}
+
+		if (strcmp(argv[i], "--pid") == 0) {
+			pid = atoi(argv[i + 1]);
+		}
+		if (strcmp(argv[i], "--path") == 0) {
+			driverPath = (LPCSTR)argv[i + 1];
+		}
+	}
+
+
 
 	// prima di caricare il driver checka se esiste
 	SC_HANDLE hSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -229,20 +250,7 @@ int main(int argc, char** argv) {
 
 
 
-	int pid = 0;
 
-
-	int loop = 0;
-
-	for (int i = 0; i < argc; i++) {
-		if (strcmp(argv[i], "--loop") == 0) {
-			loop = 1;
-		}
-
-		if (strcmp(argv[i], "--pid") == 0) {
-			pid = atoi(argv[i + 1]);
-		}
-	}
 
 
 	// se si e' selezionato il pid con -p allora termina quel processo
