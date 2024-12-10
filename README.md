@@ -3,7 +3,7 @@ A process killer that can kill protected processes abusing Zam64.sys driver (sti
 
 We will exploit the unpatched CVE-2018-6606 to use a legitimate driver to kill any process we want.
 
-Credits to:  https://rce4fun.blogspot.com/2018/02/malwarefox-antimalware-zam64sys.html
+Credits to:  https://rce4fun.blogspot.com/2018/02/malwarefox-antimalware-zam64sys.html for writing a post about CVE-2018-6606
 
 
 
